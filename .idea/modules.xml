@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Health Care/Health Care.iml" filepath="$PROJECT_DIR$/Health Care/Health Care.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Health Care/Health Care Web Application backend.iml" filepath="$PROJECT_DIR$/Health Care/Health Care Web Application backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Health-care-webApplication-server-side.iml" filepath="$PROJECT_DIR$/.idea/Health-care-webApplication-server-side.iml" />
     </modules>
   </component>

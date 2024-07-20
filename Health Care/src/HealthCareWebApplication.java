@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class HealthCareWebApplication {
-
+    //Doctor doc = new Doctor();
     public void mainMenu(){
         boolean loop1=true;
         while(loop1){
@@ -29,7 +29,7 @@ public class HealthCareWebApplication {
             System.out.println("press 1 to add a doctor, press 2 to add a doctor availability, and press 3 to exit");
             int admin =sc.nextInt();
             if(admin==1){
-                System.out.println("add a doctor ");
+                Doctor.addNewDoctor();
             }else if(admin==2){
                 System.out.println("add a doctor availability");
             }else if(admin==3){
@@ -48,7 +48,7 @@ public class HealthCareWebApplication {
             System.out.println("press 1 to view doctors, press 2 to book an appointment, press 3 to view a selected doctor's bookings , press 4 to register patient and press 5 to exit");
             int patient=sc.nextInt();
             if(patient==1){
-                System.out.println("view doctors");
+                Doctor.viewAllDoctors();
             }else if(patient==2){
                 System.out.println("book an appointment");
             }else if(patient==3){

@@ -8,8 +8,12 @@ public class Doctor {
     String name;
     String specialization;
     String contactNumber;
-    ArrayList<Doctor> allDoctors = new ArrayList<>();
-    Scanner sc = new Scanner(System.in);
+    public static ArrayList<Doctor> allDoctors = new ArrayList<>();
+    public static Scanner sc = new Scanner(System.in);
+
+    public Doctor() {
+    }
+
     public Doctor(int doctorId, String name, String specialization, String contactNumber) {
         this.doctorId = doctorId;
         this.name = name;
@@ -24,7 +28,7 @@ public class Doctor {
             return false;
         }
     }
-    public void addNewDoctor(){
+    public static void addNewDoctor(){
         System.out.println("Enter doctor name :");
         String name=sc.nextLine();
         System.out.println("Enter doctor specialization :");
@@ -33,8 +37,14 @@ public class Doctor {
         String contact =sc.nextLine();
         Random random = new Random();
 
-        Doctor dc = new Doctor(random.nextInt(),name,specialization,contact);
+        Doctor tempDoctor = new Doctor(random.nextInt(),name,specialization,contact);
+        allDoctors.add(tempDoctor);
 
+    }
+    public static void viewAllDoctors(){
+        for (Doctor dc:allDoctors) {
+            System.out.println("Doctor's name :"+dc.name+"  doctor id : "+dc.doctorId+" specialization of the doctor :" +dc.specialization+" and contact number : "+dc.contactNumber);
+        }
     }
 
 
