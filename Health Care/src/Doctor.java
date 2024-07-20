@@ -1,10 +1,15 @@
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.Scanner;
+
 public class Doctor {
 
     int doctorId;
     String name;
     String specialization;
     String contactNumber;
-
+    ArrayList<Doctor> allDoctors = new ArrayList<>();
+    Scanner sc = new Scanner(System.in);
     public Doctor(int doctorId, String name, String specialization, String contactNumber) {
         this.doctorId = doctorId;
         this.name = name;
@@ -18,6 +23,18 @@ public class Doctor {
         }else{
             return false;
         }
+    }
+    public void addNewDoctor(){
+        System.out.println("Enter doctor name :");
+        String name=sc.nextLine();
+        System.out.println("Enter doctor specialization :");
+        String specialization =sc.nextLine();
+        System.out.println("Enter doctor's contact number");
+        String contact =sc.nextLine();
+        Random random = new Random();
+
+        Doctor dc = new Doctor(random.nextInt(),name,specialization,contact);
+
     }
 
 

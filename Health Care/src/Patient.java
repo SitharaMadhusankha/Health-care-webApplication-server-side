@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+
 public class Patient {
 
     String name;
     String birthday;
     String contactNumber;
     String patientId;
+
 
     public Patient(String name, String birthday, String contactNumber, String patientId) {
         this.name = name;
@@ -12,7 +15,8 @@ public class Patient {
         this.patientId = patientId;
     }
     public char getPatientType(String patientId){
-       char letter =patientId.charAt(0);
-       return letter;
+        return patientId.charAt(0);
     }
+
+
 }
