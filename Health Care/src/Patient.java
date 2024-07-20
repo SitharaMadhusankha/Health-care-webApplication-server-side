@@ -11,4 +11,8 @@ public class Patient {
         this.contactNumber = contactNumber;
         this.patientId = patientId;
     }
+    public char getPatientType(String patientId){
+       char letter =patientId.charAt(0);
+       return letter;
+    }
 }

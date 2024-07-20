@@ -68,5 +68,6 @@ public class HealthCareWebApplication {
     public static void main(String[] args) {
         HealthCareWebApplication h1 = new HealthCareWebApplication();
         h1.mainMenu();
+
     }
 }
