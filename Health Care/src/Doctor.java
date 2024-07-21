@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.HashMap;
+
 
 public class Doctor {
 
@@ -10,6 +10,7 @@ public class Doctor {
     String specialization;
     String contactNumber;
     public ArrayList<Date> availabilities = new ArrayList<>();
+    public HashMap<Date,ArrayList<Appointment>> allAppointments = new HashMap<>();
 
     public Doctor() {
     }
