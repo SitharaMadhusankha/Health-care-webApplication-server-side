@@ -68,6 +68,50 @@ public class Controller {
         allPatients.add(temp);
         System.out.println("patient is added ");
     }
+    public void bookAppointment(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter doctor's id you want to make an appointment :");
+        int docId =sc.nextInt();
+        System.out.println("Enter your patient Id :");
+        String patientId = sc.nextLine();
+        System.out.println("Enter the notes :");
+        String notes = sc.nextLine();
+
+        System.out.println("Enter the day you want to add appointment :");
+        int day =sc.nextInt();
+        System.out.println("Enter the month you want to add appointment :");
+        int month =sc.nextInt();
+        System.out.println("Enter the year you want to add appointment :");
+        int year =sc.nextInt();
+
+        Doctor selectedDoctor = getDoctorById(docId);
+        Patient selectedPatient =getPatientById(patientId);
+
+        if(selectedDoctor ==null || selectedPatient == null){
+            System.out.println("invalid doctor or patient id");
+            return;
+        }
+
+        Date appointmentDate = new Date(year,month,day);
+        Appointment appointment = new Appointment(selectedDoctor,selectedPatient,notes,appointmentDate,"");
+    }
+    public  Patient getPatientById(String id){
+        for (Patient patient: allPatients) {
+            if(patient.patientId.equals(id)){
+                return patient;
+            }
+        }
+        return null;
+    }
+    public Doctor getDoctorById(int id){
+        for (Doctor dc :allDoctors) {
+            if(dc.doctorId==id){
+                return dc;
+            }
+        }
+        return null;
+    }
+
 
 
 
