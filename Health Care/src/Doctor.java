@@ -30,4 +30,16 @@ public class Doctor {
         }
     }
 
+    public void setAppointment(Appointment appointment , Date date){
+        ArrayList<Appointment>currentAppointment=this.allAppointments.get(date);
+        if(currentAppointment==null){
+            ArrayList<Appointment> tempArraylist = new ArrayList();
+            tempArraylist.add(appointment);
+            this.allAppointments.put(date,tempArraylist);
+        }
+        else{
+            currentAppointment.add(appointment);
+            this.allAppointments.put(date,currentAppointment);
+        }
+    }
 }

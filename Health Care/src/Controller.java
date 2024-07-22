@@ -73,16 +73,9 @@ public class Controller {
         System.out.println("Enter doctor's id you want to make an appointment :");
         int docId =sc.nextInt();
         System.out.println("Enter your patient Id :");
-        String patientId = sc.nextLine();
+        String patientId = sc.next();
         System.out.println("Enter the notes :");
-        String notes = sc.nextLine();
-
-        System.out.println("Enter the day you want to add appointment :");
-        int day =sc.nextInt();
-        System.out.println("Enter the month you want to add appointment :");
-        int month =sc.nextInt();
-        System.out.println("Enter the year you want to add appointment :");
-        int year =sc.nextInt();
+        String notes = sc.next();
 
         Doctor selectedDoctor = getDoctorById(docId);
         Patient selectedPatient =getPatientById(patientId);
@@ -92,8 +85,16 @@ public class Controller {
             return;
         }
 
+        System.out.println("Enter the day you want to add appointment :");
+        int day =sc.nextInt();
+        System.out.println("Enter the month you want to add appointment :");
+        int month =sc.nextInt();
+        System.out.println("Enter the year you want to add appointment :");
+        int year =sc.nextInt();
+
         Date appointmentDate = new Date(year,month,day);
         Appointment appointment = new Appointment(selectedDoctor,selectedPatient,notes,appointmentDate,"");
+        selectedDoctor.setAppointment(appointment,appointmentDate);
     }
     public  Patient getPatientById(String id){
         for (Patient patient: allPatients) {

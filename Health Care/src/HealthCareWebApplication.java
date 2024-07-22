@@ -50,7 +50,7 @@ public class HealthCareWebApplication {
             if(patient==1){
                 controller.viewAllDoctors();
             }else if(patient==2){
-                System.out.println("book an appointment");
+                controller.bookAppointment();
             }else if(patient==3){
                 System.out.println("view a selected doctor bookings");
             }else if(patient==4){
