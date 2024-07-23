@@ -1,11 +1,10 @@
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Controller {
     public ArrayList<Doctor> allDoctors = new ArrayList<>();
     public ArrayList<Patient> allPatients = new ArrayList<>();
+    public static int NUMBER_OF_SLOTS;
+
 
 
 
@@ -50,8 +49,8 @@ public class Controller {
         System.out.println("Enter the year you want to add availability :");
         int year = sc.nextInt();
 
-        Date booking = new Date(year, month, date);
-        selectedDoctor.availabilities.add(booking);
+        Date dateOfooking = new Date(year, month, date);
+        selectedDoctor.availabilities.add(dateOfooking);
     }
 
     public void addPatient(){
@@ -93,9 +92,49 @@ public class Controller {
         int year =sc.nextInt();
 
         Date appointmentDate = new Date(year,month,day);
-        Appointment appointment = new Appointment(selectedDoctor,selectedPatient,notes,appointmentDate,"");
-        selectedDoctor.setAppointment(appointment,appointmentDate);
+
+        boolean isAvailable=checkavailability(selectedDoctor,appointmentDate);
+        if(isAvailable){
+            String slotTime = getTimeForBooking(selectedDoctor,appointmentDate);
+            if(slotTime != null){
+                Appointment appointment = new Appointment(selectedDoctor,selectedPatient,notes,appointmentDate,"");
+                selectedDoctor.setAppointment(appointment,appointmentDate);
+                System.out.println(selectedDoctor.allAppointments.toString());
+            }else{
+                System.out.println("All the slots are filled ");
+            }
+
+        }
+        else{
+            System.out.println("doctor is not available on the selected Date");
+        }
+
     }
+    private String getTimeForBooking(Doctor selectedDoctor, Date dateOfBooking){
+        for (Map.Entry<Date,ArrayList<Appointment>> appointment :selectedDoctor.allAppointments.entrySet()) {
+            if(appointment.getKey().equals(dateOfBooking)){
+                int numberOfSlots = appointment.getValue().size();
+                if(numberOfSlots > NUMBER_OF_SLOTS-1){
+                    return null;
+                }
+                System.out.println("we can make a booking");
+                int time = 17+appointment.getValue().size();
+                String strTime =time+" :00";
+                return strTime;
+            }
+        }
+        return "17:00";
+    }
+
+    private boolean checkavailability(Doctor selectedDoctor, Date dateOfBooking){
+        for (Date date:selectedDoctor.availabilities) {
+            if(date.equals(dateOfBooking)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public  Patient getPatientById(String id){
         for (Patient patient: allPatients) {
             if(patient.patientId.equals(id)){
@@ -112,6 +151,8 @@ public class Controller {
         }
         return null;
     }
+
+
 
 
 
