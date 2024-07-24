@@ -3,23 +3,19 @@ import java.util.Date;
 import java.util.HashMap;
 
 
-public class Doctor {
+public class Doctor extends Person{
 
     int doctorId;
-    String name;
     String specialization;
-    String contactNumber;
     public ArrayList<Date> availabilities = new ArrayList<>();
     public HashMap<Date,ArrayList<Appointment>> allAppointments = new HashMap<>();
 
-    public Doctor() {
-    }
+
 
     public Doctor(int doctorId, String name, String specialization, String contactNumber) {
+        super(name,contactNumber);
         this.doctorId = doctorId;
-        this.name = name;
         this.specialization = specialization;
-        this.contactNumber = contactNumber;
 
     }
     public boolean isPhysician(String specialization){

@@ -25,7 +25,7 @@ public class Controller {
 
     public void viewAllDoctors() {
         for (Doctor dc : allDoctors) {
-            System.out.println("Doctor's name :" + dc.name + "  doctor id : " + dc.doctorId + " specialization of the doctor :" + dc.specialization + " and contact number : " + dc.contactNumber);
+            System.out.println("Doctor's name :" + dc.getName() + "  doctor id : " + dc.doctorId + " specialization of the doctor :" + dc.specialization + " and contact number : " + dc.getContactNumber());
         }
     }
 
@@ -137,7 +137,7 @@ public class Controller {
 
     public  Patient getPatientById(String id){
         for (Patient patient: allPatients) {
-            if(patient.patientId.equals(id)){
+            if(patient.getPatientId().equals(id)){
                 return patient;
             }
         }

@@ -1,17 +1,34 @@
 import java.util.ArrayList;
 
-public class Patient {
-
-    String name;
-    String birthday;
-    String contactNumber;
-    String patientId;
+public class Patient extends Person{
 
 
-    public Patient(String name, String birthday, String contactNumber, String patientId) {
-        this.name = name;
+    private String birthday;
+    private String patientId;
+
+
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
-        this.contactNumber = contactNumber;
+    }
+
+
+
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
+    }
+
+    public Patient(String name, String birthday, String patientId,String contactNumber) {
+        super(name,contactNumber);
+        this.birthday = birthday;
         this.patientId = patientId;
     }
     public char getPatientType(String patientId){
