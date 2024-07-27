@@ -6,7 +6,7 @@ public class HealthCareWebApplication {
         boolean loop1=true;
         while(loop1){
             Scanner sc = new Scanner(System.in);
-            System.out.println("if you are a hospital administrator please press 1,if you are a patient please press 2, press 3 to exit ");
+            System.out.println(" if you are a hospital administrator please press 1  ,  if you are a patient please press 2,  press 3 to exit ");
             int main =sc.nextInt();
             if(main==1){
                 hospitalAdministratorMenu();
@@ -26,7 +26,7 @@ public class HealthCareWebApplication {
         boolean loop2 =true;
         while(loop2){
             Scanner sc =new Scanner(System.in);
-            System.out.println("press 1 to add a doctor, press 2 to add a doctor availability, and press 3 to exit");
+            System.out.println("press 1 to add a doctor  ,  press 2 to add a doctor availability  ,  and press 3 to exit");
             int admin =sc.nextInt();
             if(admin==1){
                 controller.addNewDoctor();
@@ -46,7 +46,7 @@ public class HealthCareWebApplication {
         while(loop3){
             Scanner sc = new Scanner(System.in);
             Doctor doctor = new Doctor();
-            System.out.println("press 1 to view doctors, press 2 to book an appointment, press 3 to view a selected doctor's bookings ,  press 4 to add patient and press 5 to  exit");
+            System.out.println("press 1 to view doctors  ,  press 2 to book an appointment  ,  press 3 to view a selected doctor's bookings  ,  press 4 to add patient and  press 5 to  exit");
             int patient=sc.nextInt();
             if(patient==1){
                 controller.viewAllDoctors();

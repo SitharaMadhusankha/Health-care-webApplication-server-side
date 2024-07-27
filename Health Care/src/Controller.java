@@ -1,5 +1,4 @@
-import java.sql.Time;
-import java.text.SimpleDateFormat;
+
 import java.util.*;
 
 public class Controller {
@@ -76,6 +75,9 @@ public class Controller {
         System.out.println("Enter doctor's id you want to make an appointment :");
         int docId =sc.nextInt();
         sc.nextLine();//character left after nextInt();
+        System.out.println("Is this a General or Refferel Appointment ?(Press G for General, R for Referral) ");
+        String appointmentType =sc.nextLine();
+
         System.out.println("Enter your patient Id :");
         String patientId = sc.nextLine();
 
@@ -100,11 +102,11 @@ public class Controller {
 
         Date appointmentDate = new Date(year,month,day);
 
-
+         String slotTime = null;
         Date getDate=getDate(appointmentDate);
         boolean isAvailable=checkavailability(selectedDoctor,appointmentDate);
         if(isAvailable){
-            String slotTime = getTimeForBooking(selectedDoctor,appointmentDate);
+            slotTime = getTimeForBooking(selectedDoctor,appointmentDate);
             if(slotTime != null){
                 Appointment appointment = new Appointment(selectedDoctor,selectedPatient,notes,appointmentDate,"");
                 selectedDoctor.setAppointment(appointment,appointmentDate);
@@ -116,6 +118,33 @@ public class Controller {
         }
         else{
             System.out.println("doctor is not available on the selected Date");
+        }
+
+        if(appointmentType.charAt(0)=='G'){
+            System.out.println("Enter the patient notes :");
+            String patientNotes=sc.nextLine();
+            GeneralAppointment appointment= new GeneralAppointment(selectedDoctor,selectedPatient,notes,appointmentDate,slotTime,patientNotes);
+            selectedDoctor.setAppointment(appointment,appointmentDate);
+        }else if(appointmentType.charAt(0)=='R'){
+            System.out.println("Enter the referral doctor's ID :");
+            int referralDocId = sc.nextInt();
+            sc.nextLine();
+            Doctor referralDoctor =getDoctorById(referralDocId);
+            if(referralDoctor==null){
+                System.out.println("Invalid referral doctor ID");
+                return;
+            }
+            System.out.println("Enter the referral notes :");
+            String refnotes=sc.nextLine();
+
+            ReferralAppointment refAppointment = new ReferralAppointment(selectedDoctor,selectedPatient,notes,appointmentDate,slotTime,referralDoctor,refnotes);
+            System.out.println("Enter the referral doctor notes :");
+            String referralDoctorNotes=sc.nextLine();
+            refAppointment.setReferralDoctorNotes(referralDoctorNotes);
+
+            selectDoctor.setAppointment(refAppointment,appointmentDate);
+        }else{
+            System.out.println("Invalid Appointment type .");
         }
     }
     private String getTimeForBooking(Doctor selectedDoctor, Date dateOfBooking){
@@ -176,14 +205,14 @@ public class Controller {
 
     public void printAllAppointment(){
         Doctor select = selectDoctor;
-        for (Map.Entry<Date,ArrayList<Appointment>> appointment :selectDoctor.getAllAppointments().entrySet()) {
-           // System.out.println(appointment.getKey()+"   "+appointment.getValue());
-            if(appointment== null){
-                System.out.println("No Appointment Found!");
+            if(select==null){
+                System.out.println("No Appointment Found !");
+                return;
+                //without selectDoctor we can't add appointment
             }
-            Date date =appointment.getKey();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            System.out.println(String.format(String.format("Appointments for Dr : " + select.getName() + "  Doctor Id : ("+ select.getDoctorId() +")  Appointment Date : " + dateFormat.format(date))));
+        for (Map.Entry<Date,ArrayList<Appointment>> appointment :selectDoctor.getAllAppointments().entrySet()) {
+
+            System.out.println(String.format(String.format("Appointments for Dr : " + select.getName() + "  Doctor Id : ("+ select.getDoctorId() +"),  Appointment Date : " +appointment.getKey()+", Appointment "+appointment.getValue())));
         }
     }
 
