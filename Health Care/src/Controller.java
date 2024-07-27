@@ -1,40 +1,40 @@
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Controller {
     public ArrayList<Doctor> allDoctors = new ArrayList<>();
     public ArrayList<Patient> allPatients = new ArrayList<>();
-    public static int NUMBER_OF_SLOTS;
-
-
-
-
-    public Scanner sc = new Scanner(System.in);
+    public static int NUMBER_OF_SLOTS=5;
 
     public void addNewDoctor() {
+         Scanner sc = new Scanner(System.in);
         System.out.println("Enter doctor name :");
-        String name = sc.next();
+        String name = sc.nextLine();
         System.out.println("Enter doctor specialization :");
-        String specialization = sc.next();
+        String specialization = sc.nextLine();
         System.out.println("Enter doctor's contact number");
-        String contact = sc.next();
+        String contact = sc.nextLine();
         Random random = new Random();
 
         Doctor tempDoctor = new Doctor(random.nextInt(), name, specialization, contact);
         allDoctors.add(tempDoctor);
+
     }
 
     public void viewAllDoctors() {
         for (Doctor dc : allDoctors) {
-            System.out.println("Doctor's name :" + dc.getName() + "  doctor id : " + dc.doctorId + " specialization of the doctor :" + dc.specialization + " and contact number : " + dc.getContactNumber());
+            System.out.println("Doctor's name :" + dc.getName() + "  doctor id : " + dc.getDoctorId() + " specialization of the doctor :" + dc.getSpecialization() + " and contact number : " + dc.getContactNumber());
         }
     }
 
     public void doctorAvailability() {
+         Scanner sc = new Scanner(System.in);
         System.out.println("Enter doctor id you want to add availability :");
         int docId = sc.nextInt();
         Doctor selectedDoctor = null;
         for (Doctor dc : allDoctors) {
-            if (dc.doctorId == docId) {
+            if (dc.getDoctorId() == docId) {
                 selectedDoctor = dc;
             }
         }
@@ -49,37 +49,44 @@ public class Controller {
         System.out.println("Enter the year you want to add availability :");
         int year = sc.nextInt();
 
-        Date dateOfooking = new Date(year, month, date);
-        selectedDoctor.availabilities.add(dateOfooking);
+        Date dateOfBooking = new Date(year, month, date);
+        selectedDoctor.getAvailabilities().add(dateOfBooking);
+
     }
 
     public void addPatient(){
+         Scanner sc = new Scanner(System.in);
         System.out.println("Enter patient name :");
-        String name =sc.nextLine();
+        String name =sc.next();
         System.out.println("Enter the patient id :");
-        String patientId =sc.nextLine();
+        String patientId =sc.next();
         System.out.println("Enter patient contact number :");
-        String contact = sc.nextLine();
+        String contact = sc.next();
         System.out.println("Enter  the patient birthday :");
-        String birthday =sc.nextLine();
+        String birthday =sc.next();
 
-        Patient temp = new Patient(name,birthday,contact,patientId);
+        Patient temp = new Patient(name,birthday,patientId,contact);
         allPatients.add(temp);
         System.out.println("patient is added ");
+        System.out.println(allPatients.toString());
+
     }
     public void bookAppointment(){
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter doctor's id you want to make an appointment :");
         int docId =sc.nextInt();
+        sc.nextLine();//character left after nextInt();
         System.out.println("Enter your patient Id :");
-        String patientId = sc.next();
+        String patientId = sc.nextLine();
+
         System.out.println("Enter the notes :");
-        String notes = sc.next();
+        String notes = sc.nextLine();
 
         Doctor selectedDoctor = getDoctorById(docId);
         Patient selectedPatient =getPatientById(patientId);
+        Doctor getDoctor =getDoctor(selectedDoctor);
 
-        if(selectedDoctor ==null || selectedPatient == null){
+        if(selectedDoctor == null || selectedPatient == null){
             System.out.println("invalid doctor or patient id");
             return;
         }
@@ -93,25 +100,26 @@ public class Controller {
 
         Date appointmentDate = new Date(year,month,day);
 
+
+        Date getDate=getDate(appointmentDate);
         boolean isAvailable=checkavailability(selectedDoctor,appointmentDate);
         if(isAvailable){
             String slotTime = getTimeForBooking(selectedDoctor,appointmentDate);
             if(slotTime != null){
                 Appointment appointment = new Appointment(selectedDoctor,selectedPatient,notes,appointmentDate,"");
                 selectedDoctor.setAppointment(appointment,appointmentDate);
-                System.out.println(selectedDoctor.allAppointments.toString());
-            }else{
+                System.out.println(selectedDoctor.getAllAppointments().toString());
+            }
+            else{
                 System.out.println("All the slots are filled ");
             }
-
         }
         else{
             System.out.println("doctor is not available on the selected Date");
         }
-
     }
     private String getTimeForBooking(Doctor selectedDoctor, Date dateOfBooking){
-        for (Map.Entry<Date,ArrayList<Appointment>> appointment :selectedDoctor.allAppointments.entrySet()) {
+        for (Map.Entry<Date,ArrayList<Appointment>> appointment :selectedDoctor.getAllAppointments().entrySet()) {
             if(appointment.getKey().equals(dateOfBooking)){
                 int numberOfSlots = appointment.getValue().size();
                 if(numberOfSlots > NUMBER_OF_SLOTS-1){
@@ -127,7 +135,7 @@ public class Controller {
     }
 
     private boolean checkavailability(Doctor selectedDoctor, Date dateOfBooking){
-        for (Date date:selectedDoctor.availabilities) {
+        for (Date date:selectedDoctor.getAvailabilities()) {
             if(date.equals(dateOfBooking)){
                 return true;
             }
@@ -135,27 +143,57 @@ public class Controller {
         return false;
     }
 
-    public  Patient getPatientById(String id){
-        for (Patient patient: allPatients) {
-            if(patient.getPatientId().equals(id)){
-                return patient;
-            }
-        }
-        return null;
-    }
+
+   public Patient getPatientById(String id){
+       for (Patient p: allPatients) {
+           if(p.getPatientId().equals(id)){
+               return p;
+           }
+       }
+       return null;
+   }
+
     public Doctor getDoctorById(int id){
         for (Doctor dc :allDoctors) {
-            if(dc.doctorId==id){
+            if(dc.getDoctorId()==id){
                 return dc;
             }
         }
         return null;
     }
+    public Doctor selectDoctor;
+    public Date selectDate;
+
+    public Doctor getDoctor(Doctor doc){
+       this.selectDoctor=doc;
+       return selectDoctor;
+    }
+    public Date getDate(Date date){
+        this.selectDate=date;
+        return selectDate;
+    }
 
 
-
-
-
-
+    public void printAllAppointment(){
+        Doctor select = selectDoctor;
+        for (Map.Entry<Date,ArrayList<Appointment>> appointment :selectDoctor.getAllAppointments().entrySet()) {
+           // System.out.println(appointment.getKey()+"   "+appointment.getValue());
+            if(appointment== null){
+                System.out.println("No Appointment Found!");
+            }
+            Date date =appointment.getKey();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            System.out.println(String.format(String.format("Appointments for Dr : " + select.getName() + "  Doctor Id : ("+ select.getDoctorId() +")  Appointment Date : " + dateFormat.format(date))));
+        }
+    }
 
 }
+
+
+
+
+
+
+
+
+

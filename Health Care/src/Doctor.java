@@ -5,10 +5,11 @@ import java.util.HashMap;
 
 public class Doctor extends Person{
 
-    int doctorId;
-    String specialization;
-    public ArrayList<Date> availabilities = new ArrayList<>();
-    public HashMap<Date,ArrayList<Appointment>> allAppointments = new HashMap<>();
+    private int doctorId;
+    private String specialization;
+    private  ArrayList<Date> availabilities = new ArrayList<>();
+    private HashMap<Date,ArrayList<Appointment>> allAppointments = new HashMap<>();
+
 
 
 
@@ -17,19 +18,18 @@ public class Doctor extends Person{
         this.doctorId = doctorId;
         this.specialization = specialization;
 
-    }
-    public boolean isPhysician(String specialization){
-        if(specialization.endsWith("Physician")){
-            return true;
-        }else{
-            return false;
-        }
+
     }
 
+    public Doctor() {
+        super();
+    }
+
+
     public void setAppointment(Appointment appointment , Date date){
-        ArrayList<Appointment>currentAppointment=this.allAppointments.get(date);
+        ArrayList<Appointment>currentAppointment = this.allAppointments.get(date);
         if(currentAppointment==null){
-            ArrayList<Appointment> tempArraylist = new ArrayList();
+            ArrayList<Appointment> tempArraylist = new ArrayList<>();
             tempArraylist.add(appointment);
             this.allAppointments.put(date,tempArraylist);
         }
@@ -38,4 +38,39 @@ public class Doctor extends Person{
             this.allAppointments.put(date,currentAppointment);
         }
     }
+    /*
+    public void setAppointment(Appointment appointment, Date date) {
+        ArrayList<Appointment> currentAppointments = allAppointments.getOrDefault(date, new ArrayList<>());
+        currentAppointments.add(appointment);
+        allAppointments.put(date, currentAppointments);
+    }*/
+
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public String getSpecialization() {
+        return specialization;
+    }
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
+
+    public ArrayList<Date> getAvailabilities() {
+        return availabilities;
+    }
+
+    public void setAvailabilities(ArrayList<Date> availabilities) {
+        this.availabilities = availabilities;
+    }
+    public HashMap<Date,ArrayList<Appointment>>getAllAppointments(){
+        return allAppointments;
+    }
+
+
 }

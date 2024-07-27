@@ -1,12 +1,15 @@
+
 import java.util.Date;
+
 
 public class Appointment {
 
-    Doctor doctor;
-    Patient patient;
-    String notes;
-    Date date;
-    String time;
+    private Doctor doctor;
+    private Patient patient;
+    private String notes;
+    private Date date;
+    private String time;
+
 
     public Appointment(Doctor doctor, Patient patient, String notes, Date date, String time) {
         this.doctor = doctor;
@@ -15,4 +18,6 @@ public class Appointment {
         this.date = date;
         this.time = time;
     }
+
+
 }

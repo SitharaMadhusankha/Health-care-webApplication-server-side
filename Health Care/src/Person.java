@@ -8,6 +8,10 @@ public abstract class Person {
         this.contactNumber = contactNumber;
     }
 
+    public Person() {
+
+    }
+
     public String getName() {
         return name;
     }
@@ -23,4 +27,5 @@ public abstract class Person {
     public void setContactNumber(String contactNumber) {
         this.contactNumber = contactNumber;
     }
+
 }

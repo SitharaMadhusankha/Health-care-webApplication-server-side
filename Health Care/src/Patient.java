@@ -6,7 +6,11 @@ public class Patient extends Person{
     private String birthday;
     private String patientId;
 
-
+    public Patient(String name, String birthday, String patientId,String contactNumber) {
+        super(name,contactNumber);
+        this.birthday = birthday;
+        this.patientId = patientId;
+    }
 
     public String getBirthday() {
         return birthday;
@@ -26,14 +30,11 @@ public class Patient extends Person{
         this.patientId = patientId;
     }
 
-    public Patient(String name, String birthday, String patientId,String contactNumber) {
-        super(name,contactNumber);
-        this.birthday = birthday;
-        this.patientId = patientId;
-    }
-    public char getPatientType(String patientId){
+
+
+   /* public char getPatientType(String patientId){
         return patientId.charAt(0);
-    }
+    }*/
 
 
 }
